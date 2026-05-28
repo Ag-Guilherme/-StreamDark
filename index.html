@@ -9,7 +9,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;--border:#282828;--text:#fff;--text2:#999;--text3:#555;--red:#e50914;--blue:#3b82f6;--green:#22c55e;--purple:#8b5cf6;--orange:#f97316}
+        :root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;--border:#282828;--text:#fff;--text2:#999;--text3:#555;--red:#e50914;--blue:#3b82f6;--green:#22c55e;--purple:#8b5cf6;--orange:#f97316;--cyan:#06b6d4}
         body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
         ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
 
@@ -29,6 +29,7 @@
         .btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:#2a2a2a;color:var(--text)}
         .btn-purple{background:var(--purple);color:#fff}.btn-purple:hover{background:#7c3aed}
         .btn-sm{padding:5px 10px;font-size:11px}
+        .btn-cyan{background:var(--cyan);color:#fff}.btn-cyan:hover{background:#0891b2}
 
         .main{margin-top:56px;padding:20px;max-width:1400px;margin-left:auto;margin-right:auto}
         .tabs{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
@@ -38,15 +39,16 @@
         .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
         .card{background:var(--bg2);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .25s;border:1px solid transparent}
         .card:hover{transform:translateY(-3px);border-color:var(--border);box-shadow:0 8px 24px rgba(0,0,0,.5)}
-        .thumb{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg3);overflow:hidden}
+        .thumb{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center}
         .thumb img{width:100%;height:100%;object-fit:cover}
+        .thumb-logo{width:60px;height:60px;border-radius:8px;object-fit:contain;background:rgba(0,0,0,.3);padding:4px}
         .thumb-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
         .card:hover .thumb-overlay{opacity:1}.thumb-overlay i{font-size:40px;color:#fff}
         .badge{position:absolute;top:8px;left:8px;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase}
-        .badge-yt{background:#ff0000;color:#fff}.badge-drive{background:var(--blue);color:#fff}.badge-link{background:var(--green);color:#fff}
+        .badge-yt{background:#ff0000;color:#fff}.badge-drive{background:var(--blue);color:#fff}.badge-link{background:var(--green);color:#fff}.badge-iptv{background:var(--cyan);color:#000}
 
         .card-info{padding:10px}.card-title{font-size:13px;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-        .card-cat{font-size:11px;color:var(--text3);margin-top:4px}
+        .card-cat{font-size:11px;color:var(--text3);margin-top:4px;display:flex;align-items:center;gap:4px}
         .del-btn{position:absolute;top:6px;right:6px;width:24px;height:24px;background:rgba(0,0,0,.7);border:none;border-radius:4px;color:var(--red);cursor:pointer;display:none;align-items:center;justify-content:center;font-size:10px;z-index:5}
         .card:hover .del-btn{display:flex}.del-btn:hover{background:var(--red);color:#fff}
 
@@ -58,8 +60,9 @@
         .player-actions{display:flex;gap:6px;flex-wrap:wrap}
         .related-item{display:flex;gap:8px;padding:6px;border-radius:6px;cursor:pointer;transition:background .15s}
         .related-item:hover{background:var(--bg3)}
-        .related-thumb{width:140px;aspect-ratio:16/9;background:var(--bg3);border-radius:6px;overflow:hidden;flex-shrink:0;position:relative}
+        .related-thumb{width:140px;aspect-ratio:16/9;background:var(--bg3);border-radius:6px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative}
         .related-thumb img{width:100%;height:100%;object-fit:cover}
+        .related-logo{width:40px;height:40px;border-radius:6px;object-fit:contain;background:rgba(0,0,0,.3);padding:2px}
         .related-info{flex:1}.related-info h4{font-size:12px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
         .related-info p{font-size:10px;color:var(--text3);margin-top:2px}
 
@@ -75,8 +78,9 @@
         .modal-body{padding:20px}.modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
 
         .field{margin-bottom:16px}.field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:6px}
-        .field input,.field select{width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border .2s}
-        .field input:focus,.field select:focus{border-color:var(--red)}
+        .field input,.field select,.field textarea{width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border .2s}
+        .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red)}
+        .field textarea{resize:vertical;min-height:80px}
         .hint{font-size:10px;color:var(--text3);margin-top:4px}
 
         .src-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
@@ -106,7 +110,7 @@
         .a-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid var(--border)}
         .a-table tr:hover td{background:var(--bg3)}
         .tag{padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;text-transform:uppercase;display:inline-block}
-        .tag-yt{background:rgba(255,0,0,.15);color:#ff4444}.tag-drive{background:rgba(59,130,246,.15);color:#60a5fa}.tag-link{background:rgba(34,197,94,.15);color:#4ade80}
+        .tag-yt{background:rgba(255,0,0,.15);color:#ff4444}.tag-drive{background:rgba(59,130,246,.15);color:#60a5fa}.tag-link{background:rgba(34,197,94,.15);color:#4ade80}.tag-iptv{background:rgba(6,182,212,.15);color:var(--cyan)}
         .act-btn{width:26px;height:26px;border:none;border-radius:5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s}
         .act-del{background:rgba(229,9,20,.15);color:var(--red)}.act-del:hover{background:var(--red);color:#fff}
         .act-copy{background:rgba(34,197,94,.15);color:var(--green)}.act-copy:hover{background:var(--green);color:#fff}
@@ -124,6 +128,32 @@
         .table-wrap{overflow-x:auto}
 
         .sync-status-bar{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+        /* IPTV specific styles */
+        .iptv-upload-area{border:2px dashed var(--border);border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px}
+        .iptv-upload-area:hover,.iptv-upload-area.dragover{border-color:var(--cyan);background:rgba(6,182,212,.05)}
+        .iptv-upload-area i{font-size:36px;color:var(--cyan);margin-bottom:8px}
+        .iptv-upload-area p{font-size:13px;color:var(--text2);margin-bottom:4px}
+        .iptv-upload-area small{font-size:10px;color:var(--text3)}
+
+        .iptv-playlist-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+        .iptv-playlist-info{display:flex;align-items:center;gap:10px}
+        .iptv-playlist-icon{width:40px;height:40px;background:rgba(6,182,212,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:18px}
+        .iptv-playlist-name{font-size:13px;font-weight:600}
+        .iptv-playlist-count{font-size:11px;color:var(--text3)}
+
+        .iptv-groups{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+        .iptv-group{padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;font-size:11px;color:var(--text2);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+        .iptv-group:hover{background:#2a2a2a;color:var(--text)}.iptv-group.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
+
+        .iptv-channel-thumb{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#0a1628,#1a0a28);overflow:hidden;display:flex;align-items:center;justify-content:center}
+        .iptv-channel-thumb .channel-logo{width:60px;height:60px;object-fit:contain;border-radius:8px;padding:4px;background:rgba(0,0,0,.2)}
+        .iptv-channel-thumb .live-dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+        .iptv-search{display:flex;gap:8px;margin-bottom:16px}
+        .iptv-search input{flex:1;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:'Inter',sans-serif;outline:none}
+        .iptv-search input:focus{border-color:var(--cyan)}
 
         @media(max-width:900px){.player-wrap{grid-template-columns:1fr}}
         @media(max-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}.header{padding:0 12px}.main{padding:14px}}
@@ -145,10 +175,19 @@
             <button class="tab" onclick="filter('filmes',this)">Filmes</button>
             <button class="tab" onclick="filter('series',this)">Séries</button>
             <button class="tab" onclick="filter('clips',this)">Clips</button>
+            <button class="tab" onclick="filter('iptv',this)" style="color:var(--cyan)">📺 IPTV</button>
             <button class="tab" onclick="filter('fav',this)">Favoritos</button>
         </div>
+
+        <div id="iptv-groups-bar" class="iptv-groups" style="display:none"></div>
+
+        <div class="iptv-search" id="iptv-search-bar" style="display:none">
+            <input type="text" id="iptv-search-input" placeholder="Buscar canal..." oninput="filterIptvChannels(this.value)">
+            <button class="btn btn-ghost btn-sm" onclick="clearIptvSearch()"><i class="fas fa-times"></i></button>
+        </div>
+
         <div class="grid" id="grid"></div>
-        <div class="empty" id="empty" style="display:none"><i class="fas fa-play-circle"></i><h3>Nenhum conteúdo</h3><p>Acesse o Admin para adicionar vídeos.</p></div>
+        <div class="empty" id="empty" style="display:none"><i class="fas fa-play-circle"></i><h3>Nenhum conteúdo</h3><p>Acesse o Admin para adicionar vídeos ou listas IPTV.</p></div>
     </div>
 
     <div id="player-view" style="display:none">
@@ -178,6 +217,7 @@
         <div class="a-tabs">
             <button class="a-tab on" onclick="aTab('videos',this)">Vídeos</button>
             <button class="a-tab" onclick="aTab('add-v',this)">+ Adicionar</button>
+            <button class="a-tab" onclick="aTab('iptv-admin',this)" style="color:var(--cyan)">📺 IPTV</button>
             <button class="a-tab" onclick="aTab('cloud',this)">☁️ Nuvem</button>
         </div>
 
@@ -204,8 +244,21 @@
             </div>
         </div>
 
+        <!-- IPTV Admin Section -->
+        <div class="a-section" id="sec-iptv-admin">
+            <div class="a-card">
+                <div class="a-card-head"><h3><i class="fas fa-satellite-dish" style="color:var(--cyan);margin-right:8px"></i>Listas IPTV</h3>
+                    <button class="btn btn-cyan btn-sm" onclick="showIptvAddModal()"><i class="fas fa-plus"></i> Adicionar Lista</button>
+                </div>
+                <div style="padding:16px">
+                    <div id="iptv-playlists-list"></div>
+                    <div id="iptv-playlists-empty" class="empty" style="padding:20px"><i class="fas fa-satellite-dish"></i><h3>Nenhuma lista IPTV</h3><p>Adicione uma lista M3U para começar.</p></div>
+                </div>
+            </div>
+        </div>
+
         <div class="a-section" id="sec-cloud">
-            <div class="a-card"><div class="a-card-head"><h3><i class="fas fa-cloud" style="color:var(--red);margin-right:8px"></i> Nuvem (Já Configurada)</h3></div>
+            <div class="a-card"><div class="a-card-head"><h3><i class="fas fa-cloud" style="color:var(--red);margin-right:8px"></i> Nuvem</h3></div>
                 <div style="padding:16px">
                     <div class="sync-status-bar">
                         <div style="display:flex;align-items:center;gap:8px"><i class="fas fa-cloud" style="font-size:20px;color:var(--red)"></i><div><div style="font-size:13px;font-weight:700">Bin ID: <span style="font-family:monospace;color:var(--red)">6a173881ddf5aa59f76cfbc2</span></div><div style="font-size:10px;color:var(--text3)">Configurado automaticamente</div></div></div>
@@ -222,6 +275,7 @@
     </div>
 </main>
 
+<!-- Add Video Modal -->
 <div class="overlay" id="modal-add" onclick="if(event.target===this)closeModal('modal-add')">
     <div class="modal"><div class="modal-head"><h2>Adicionar Vídeo</h2><button class="modal-x" onclick="closeModal('modal-add')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
@@ -234,6 +288,26 @@
     </div>
 </div>
 
+<!-- IPTV Add Modal -->
+<div class="overlay" id="modal-iptv-add" onclick="if(event.target===this)closeModal('modal-iptv-add')">
+    <div class="modal"><div class="modal-head"><h2><i class="fas fa-satellite-dish" style="color:var(--cyan);margin-right:8px"></i>Adicionar Lista IPTV</h2><button class="modal-x" onclick="closeModal('modal-iptv-add')"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body">
+            <div class="field"><label>Nome da Lista</label><input type="text" id="iptv-name" placeholder="Ex: Minha Lista IPTV"></div>
+            <div class="field"><label>URL da Lista M3U</label><input type="text" id="iptv-url" placeholder="http://stm21.fun/get.php?username=xxx&password=xxx&type=m3u_plus"><div class="hint">Cole a URL completa da lista M3U</div></div>
+            <div style="text-align:center;margin:12px 0;color:var(--text3);font-size:12px">— ou —</div>
+            <div class="iptv-upload-area" id="iptv-drop-zone" onclick="document.getElementById('iptv-file-input').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Arraste um arquivo .m3u / .m3u8 aqui</p>
+                <small>ou clique para selecionar</small>
+            </div>
+            <input type="file" id="iptv-file-input" accept=".m3u,.m3u8,.txt" style="display:none" onchange="handleIptvFile(this)">
+            <div class="field" style="margin-top:12px"><label>Texto M3U (opcional)</label><textarea id="iptv-m3u-text" placeholder="Cole o conteúdo do arquivo M3U aqui..."></textarea></div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('modal-iptv-add')">Cancelar</button><button class="btn btn-cyan" onclick="addIptvPlaylist()"><i class="fas fa-plus"></i> Carregar Lista</button></div>
+    </div>
+</div>
+
+<!-- Admin Login -->
 <div class="admin-login" id="admin-login"><div class="login-card">
     <div class="logo"><div class="logo-box"><i class="fas fa-shield-halved"></i></div><span>Stream<em>Dark</em></span></div>
     <h3>Painel Admin</h3><p>Digite a senha para acessar</p>
@@ -246,18 +320,18 @@
 
 <script>
 const ADMIN_PASS='admin123';
-// CONFIGURAÇÃO DA NUVEM JÁ INCLUÍDA
 const CLOUD_BIN='6a173881ddf5aa59f76cfbc2';
 const CLOUD_KEY='$2a$10$ISDOMV9DYyZR2Z.NtmCMe.4y94QeMrK.L1ycOmt.GfmENetdlfyyC';
 
 let videos=JSON.parse(localStorage.getItem('sd_v')||'[]');
 let favs=JSON.parse(localStorage.getItem('sd_fav')||'[]');
-let curCat='all',userSrc='youtube',adminSrc='youtube',curPlay=null,hls=null,vSearch='';
+let iptvPlaylists=JSON.parse(localStorage.getItem('sd_iptv')||'[]');
+let curCat='all',userSrc='youtube',adminSrc='youtube',curPlay=null,hls=null,vSearch='',iptvSearch='',iptvActiveGroup='all';
 
 document.addEventListener('DOMContentLoaded',()=>{render();updateCloudBadge();setTimeout(()=>syncFromCloud(true),1500)});
 function gid(){return'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 
-function goHome(){document.getElementById('home-view').style.display='';document.getElementById('player-view').style.display='none';document.getElementById('admin-panel').classList.remove('show');killPlayer();curPlay=null}
+function goHome(){document.getElementById('home-view').style.display='';document.getElementById('player-view').style.display='none';document.getElementById('admin-panel').classList.remove('show');killPlayer();curPlay=null;document.getElementById('iptv-groups-bar').style.display='none';document.getElementById('iptv-search-bar').style.display='none';iptvSearch='';iptvActiveGroup='all'}
 
 // ===== NUVEM =====
 function updateCloudBadge(){
@@ -271,7 +345,7 @@ async function syncToCloud(){
     const badge=document.getElementById('sync-badge');
     if(badge){badge.className='sync-indicator sync-load';badge.innerHTML='<span class="sync-dot"></span> Enviando...'}
     try{
-        const data={videos,favs,syncedAt:new Date().toISOString()};
+        const data={videos,favs,iptvPlaylists,syncedAt:new Date().toISOString()};
         const res=await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_BIN}`,{
             method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':CLOUD_KEY},body:JSON.stringify(data)
         });
@@ -288,10 +362,230 @@ async function syncFromCloud(silent=false){
         const json=await res.json();const d=json.record;
         if(d.videos){videos=d.videos;saveV()}
         if(d.favs){favs=d.favs;saveFav()}
+        if(d.iptvPlaylists){iptvPlaylists=d.iptvPlaylists;saveIptv()}
         render();if(!silent)toast('✅ Dados baixados da nuvem!','ok');updateCloudBadge();
     }catch(e){if(!silent)toast('Erro ao baixar: '+e.message,'err')}
 }
 
+// ===== IPTV M3U Parser =====
+function parseM3U(text){
+    const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
+    const channels=[];
+    let current=null;
+    for(let i=0;i<lines.length;i++){
+        const line=lines[i];
+        if(line.startsWith('#EXTINF')){
+            const info=line;
+            const durationMatch=info.match(/#EXTINF:\s*(-?\d+)/);
+            const duration=durationMatch?parseInt(durationMatch[1]):-1;
+            const tvgNameMatch=info.match(/tvg-name="([^"]*)"/i);
+            const tvgIdMatch=info.match(/tvg-id="([^"]*)"/i);
+            const tvgLogoMatch=info.match(/tvg-logo="([^"]*)"/i);
+            const groupMatch=info.match(/group-title="([^"]*)"/i);
+            const titleParts=line.split(',');
+            const title=titleParts.length>1?titleParts.slice(1).join(',').trim():'';
+            current={
+                title:tvgNameMatch?tvgNameMatch[1]:title||'Sem nome',
+                logo:tvgLogoMatch?tvgLogoMatch[1]:'',
+                group:groupMatch?groupMatch[1]:'Sem grupo',
+                id:tvgIdMatch?tvgIdMatch[1]:'',
+                duration:duration
+            };
+        }else if(line.startsWith('#')){
+            continue;
+        }else if(current){
+            current.url=line;
+            current.id=gid();
+            channels.push({...current});
+            current=null;
+        }else if(!line.startsWith('#')){
+            channels.push({id:gid(),title:'Canal '+(channels.length+1),logo:'',group:'Sem grupo',url:line});
+        }
+    }
+    return channels;
+}
+
+// ===== IPTV Management =====
+function showIptvAddModal(){document.getElementById('modal-iptv-add').classList.add('show');document.getElementById('iptv-name').value='';document.getElementById('iptv-url').value='';document.getElementById('iptv-m3u-text').value='';document.getElementById('iptv-file-input').value=''}
+
+async function addIptvPlaylist(){
+    const name=document.getElementById('iptv-name').value.trim()||'Lista IPTV';
+    const url=document.getElementById('iptv-url').value.trim();
+    const m3uText=document.getElementById('iptv-m3u-text').value.trim();
+    const fileInput=document.getElementById('iptv-file-input');
+
+    if(url){
+        toast('📡 Carregando lista IPTV...','inf');
+        try{
+            const res=await fetch(url);
+            if(!res.ok)throw new Error(`Erro ${res.status}`);
+            const text=await res.text();
+            if(!text.includes('#EXTINF'))throw new Error('Arquivo não é uma lista M3U válida');
+            const channels=parseM3U(text);
+            if(!channels.length)throw new Error('Nenhum canal encontrado');
+            const playlist={id:gid(),name,url,channels,addedAt:Date.now(),channelCount:channels.length};
+            iptvPlaylists.unshift(playlist);
+            saveIptv();
+            addChannelsToVideos(channels,playlist.id);
+            render();renderIptvPlaylists();closeModal('modal-iptv-add');
+            toast(`✅ ${channels.length} canais carregados!`,'ok');
+            syncToCloud();
+        }catch(e){toast('Erro ao carregar lista: '+e.message,'err')}
+    }else if(m3uText){
+        if(!m3uText.includes('#EXTINF'))return toast('Texto não é uma lista M3U válida','err');
+        const channels=parseM3U(m3uText);
+        if(!channels.length)return toast('Nenhum canal encontrado','err');
+        const playlist={id:gid(),name,url:'',channels,addedAt:Date.now(),channelCount:channels.length};
+        iptvPlaylists.unshift(playlist);
+        saveIptv();
+        addChannelsToVideos(channels,playlist.id);
+        render();renderIptvPlaylists();closeModal('modal-iptv-add');
+        toast(`✅ ${channels.length} canais carregados!`,'ok');
+        syncToCloud();
+    }else if(fileInput.files.length>0){
+        const file=fileInput.files[0];
+        const reader=new FileReader();
+        reader.onload=function(ev){
+            const text=ev.target.result;
+            if(!text.includes('#EXTINF'))return toast('Arquivo não é uma lista M3U válida','err');
+            const channels=parseM3U(text);
+            if(!channels.length)return toast('Nenhum canal encontrado','err');
+            const playlist={id:gid(),name:name||file.name,url:'',channels,addedAt:Date.now(),channelCount:channels.length};
+            iptvPlaylists.unshift(playlist);
+            saveIptv();
+            addChannelsToVideos(channels,playlist.id);
+            render();renderIptvPlaylists();closeModal('modal-iptv-add');
+            toast(`✅ ${channels.length} canais carregados!`,'ok');
+            syncToCloud();
+        };
+        reader.readAsText(file);
+    }else{
+        toast('Insira uma URL, texto M3U ou arquivo','err');
+    }
+}
+
+function addChannelsToVideos(channels,playlistId){
+    channels.forEach(ch=>{
+        videos.unshift({
+            id:ch.id,
+            url:ch.url,
+            title:ch.title,
+            source:'iptv',
+            embedId:null,
+            category:'iptv',
+            iptvGroup:ch.group,
+            iptvLogo:ch.logo,
+            iptvPlaylistId:playlistId,
+            addedAt:Date.now()
+        });
+    });
+    saveV();
+}
+
+function handleIptvFile(input){
+    if(input.files.length>0){
+        const file=input.files[0];
+        const reader=new FileReader();
+        reader.onload=function(ev){
+            document.getElementById('iptv-m3u-text').value=ev.target.result;
+            if(!document.getElementById('iptv-name').value){
+                document.getElementById('iptv-name').value=file.name.replace(/\.(m3u8?|txt)$/i,'');
+            }
+        };
+        reader.readAsText(file);
+    }
+}
+
+// Drag and drop
+document.addEventListener('DOMContentLoaded',()=>{
+    const dropZone=document.getElementById('iptv-drop-zone');
+    if(dropZone){
+        dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+        dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop',e=>{
+            e.preventDefault();dropZone.classList.remove('dragover');
+            const files=e.dataTransfer.files;
+            if(files.length>0){
+                document.getElementById('iptv-file-input').files=files;
+                handleIptvFile(document.getElementById('iptv-file-input'));
+            }
+        });
+    }
+});
+
+function deleteIptvPlaylist(playlistId){
+    if(!confirm('Excluir esta lista IPTV e todos os seus canais?'))return;
+    videos=videos.filter(v=>v.iptvPlaylistId!==playlistId);
+    iptvPlaylists=iptvPlaylists.filter(p=>p.id!==playlistId);
+    saveV();saveIptv();render();renderIptvPlaylists();
+    toast('Lista IPTV excluída','inf');syncToCloud();
+}
+
+function refreshIptvPlaylist(playlistId){
+    const pl=iptvPlaylists.find(p=>p.id===playlistId);
+    if(!pl||!pl.url)return toast('URL não disponível para atualização','err');
+    toast('📡 Atualizando lista...','inf');
+    fetch(pl.url).then(r=>{
+        if(!r.ok)throw new Error('Erro na requisição');
+        return r.text();
+    }).then(text=>{
+        if(!text.includes('#EXTINF'))throw new Error('Lista inválida');
+        const channels=parseM3U(text);
+        videos=videos.filter(v=>v.iptvPlaylistId!==playlistId);
+        addChannelsToVideos(channels,playlistId);
+        pl.channels=channels;pl.channelCount=channels.length;
+        pl.updatedAt=Date.now();
+        saveIptv();saveV();render();renderIptvPlaylists();
+        toast(`✅ ${channels.length} canais atualizados!`,'ok');
+        syncToCloud();
+    }).catch(e=>toast('Erro ao atualizar: '+e.message,'err'));
+}
+
+function renderIptvPlaylists(){
+    const container=document.getElementById('iptv-playlists-list');
+    const emptyEl=document.getElementById('iptv-playlists-empty');
+    if(!iptvPlaylists.length){container.innerHTML='';emptyEl.style.display='';return}
+    emptyEl.style.display='none';
+    container.innerHTML=iptvPlaylists.map(pl=>{
+        const date=pl.addedAt?new Date(pl.addedAt).toLocaleDateString('pt-BR'):'-';
+        const count=pl.channelCount||0;
+        const hasUrl=!!pl.url;
+        return`<div class="iptv-playlist-card">
+            <div class="iptv-playlist-info">
+                <div class="iptv-playlist-icon"><i class="fas fa-satellite-dish"></i></div>
+                <div>
+                    <div class="iptv-playlist-name">${pl.name}</div>
+                    <div class="iptv-playlist-count">${count} canais • Adicionado em ${date}${pl.updatedAt?' • Atualizado em '+new Date(pl.updatedAt).toLocaleDateString('pt-BR'):''}</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:4px">
+                ${hasUrl?`<button class="act-btn" style="background:rgba(6,182,212,.15);color:var(--cyan)" onclick="refreshIptvPlaylist('${pl.id}')" title="Atualizar"><i class="fas fa-sync-alt"></i></button>`:''}
+                <button class="act-btn act-del" onclick="deleteIptvPlaylist('${pl.id}')" title="Excluir"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>`}).join('');
+}
+
+// ===== IPTV Channel Filtering =====
+function filterIptvChannels(query){
+    iptvSearch=query.toLowerCase();
+    renderGrid();
+}
+
+function clearIptvSearch(){
+    iptvSearch='';
+    document.getElementById('iptv-search-input').value='';
+    renderGrid();
+}
+
+function filterIptvGroup(group){
+    iptvActiveGroup=group;
+    document.querySelectorAll('.iptv-group').forEach(g=>{
+        g.classList.toggle('active',g.dataset.group===group);
+    });
+    renderGrid();
+}
+
+// ===== Player =====
 function openPlayer(id){
     const v=videos.find(x=>x.id===id);if(!v)return;curPlay=id;
     document.getElementById('home-view').style.display='none';document.getElementById('player-view').style.display='';
@@ -304,43 +598,127 @@ function openPlayer(id){
     let meta='';
     if(v.source==='youtube'){box.innerHTML=`<iframe src="https://www.youtube.com/embed/${v.embedId}?autoplay=1&rel=0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>`;meta='<span><i class="fab fa-youtube"></i> YouTube</span>'}
     else if(v.source==='drive'){box.innerHTML=`<iframe src="https://drive.google.com/file/d/${v.embedId}/preview" allow="autoplay;fullscreen" allowfullscreen></iframe>`;meta='<span><i class="fab fa-google-drive"></i> Drive</span>'}
+    else if(v.source==='iptv'){
+        playHls(v.url,box);
+        meta=`<span style="color:var(--cyan)"><i class="fas fa-satellite-dish"></i> IPTV</span>`;
+        if(v.iptvGroup)meta+=`<span><i class="fas fa-tag"></i> ${v.iptvGroup}</span>`;
+    }
     else{
         if(v.url.match(/\.(mp4|webm|ogg|m3u8)(\?.*)?$/i)){
-            if(v.url.includes('.m3u8')){playHls(v.url,box)}
+            if(v.url.includes('.m3u8')||Hls.isSupported()){playHls(v.url,box)}
             else{const vid=document.createElement('video');vid.controls=true;vid.autoplay=true;vid.style.cssText='width:100%;height:100%';vid.src=v.url;box.appendChild(vid)}
             meta='<span><i class="fas fa-link"></i> Link Direto</span>'}
         else{box.innerHTML=`<iframe src="${v.url}" allowfullscreen></iframe>`;meta='<span><i class="fas fa-link"></i> Link</span>'}
     }
     meta+=`<span><i class="fas fa-tag"></i> ${v.category||'Geral'}</span>`;
     document.getElementById('player-meta').innerHTML=meta;
-    const rel=videos.filter(x=>x.id!==id).slice(0,8);const rBox=document.getElementById('related');
+    const rel=videos.filter(x=>x.id!==id&&(v.source==='iptv'?x.source==='iptv':true)).slice(0,8);
+    const rBox=document.getElementById('related');
     if(!rel.length)rBox.innerHTML='<p style="color:var(--text3);font-size:12px">Nenhum</p>';
-    else rBox.innerHTML=rel.map(r=>{const t=r.source==='youtube'&&r.embedId?`https://img.youtube.com/vi/${r.embedId}/hqdefault.jpg`:'';return`<div class="related-item" onclick="openPlayer('${r.id}')"><div class="related-thumb">${t?`<img src="${t}" onerror="this.style.display='none'">`:''}</div><div class="related-info"><h4>${r.title||'?'}</h4><p>${r.category||'Geral'}</p></div></div>`}).join('')}
+    else rBox.innerHTML=rel.map(r=>{
+        let thumbHtml='';
+        if(r.source==='youtube'&&r.embedId){
+            thumbHtml=`<img src="https://img.youtube.com/vi/${r.embedId}/hqdefault.jpg" onerror="this.style.display='none'">`;
+        }else if(r.source==='iptv'&&r.iptvLogo){
+            thumbHtml=`<img class="related-logo" src="${r.iptvLogo}" onerror="this.style.display='none'">`;
+        }
+        const isIptv=r.source==='iptv';
+        return`<div class="related-item" onclick="openPlayer('${r.id}')"><div class="related-thumb">${thumbHtml}${isIptv?'<div class="live-dot" style="position:absolute;top:6px;right:6px;width:6px;height:6px;background:var(--red);border-radius:50%"></div>':''}</div><div class="related-info"><h4>${r.title||'?'}</h4><p>${r.iptvGroup||r.category||'Geral'}</p></div></div>`}).join('')}
 
-function playHls(url,container){container.innerHTML='';const vid=document.createElement('video');vid.controls=true;vid.autoplay=true;vid.style.cssText='width:100%;height:100%';container.appendChild(vid);
-if(Hls.isSupported()){if(hls)hls.destroy();hls=new Hls({enableWorker:true,maxBufferLength:30});hls.loadSource(url);hls.attachMedia(vid);hls.on(Hls.Events.MANIFEST_PARSED,()=>vid.play().catch(()=>{}));hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){if(d.type===Hls.ErrorTypes.NETWORK_ERROR)hls.startLoad();else if(d.type===Hls.ErrorTypes.MEDIA_ERROR)hls.recoverMediaError()}})}
-else if(vid.canPlayType('application/vnd.apple.mpegurl')){vid.src=url;vid.addEventListener('loadedmetadata',()=>vid.play().catch(()=>{}))}}
+function playHls(url,container){
+    container.innerHTML='';
+    const vid=document.createElement('video');
+    vid.controls=true;vid.autoplay=true;vid.style.cssText='width:100%;height:100%';
+    vid.setAttribute('playsinline','');
+    container.appendChild(vid);
+    if(url.includes('.m3u8')&&Hls.isSupported()){
+        if(hls)hls.destroy();
+        hls=new Hls({enableWorker:true,maxBufferLength:30,maxMaxBufferLength:60});
+        hls.loadSource(url);
+        hls.attachMedia(vid);
+        hls.on(Hls.Events.MANIFEST_PARSED,()=>vid.play().catch(()=>{}));
+        hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){if(d.type===Hls.ErrorTypes.NETWORK_ERROR)hls.startLoad();else if(d.type===Hls.ErrorTypes.MEDIA_ERROR)hls.recoverMediaError()}});
+    }else if(vid.canPlayType('application/vnd.apple.mpegurl')){
+        vid.src=url;vid.addEventListener('loadedmetadata',()=>vid.play().catch(()=>{}));
+    }else{
+        vid.src=url;vid.addEventListener('loadedmetadata',()=>vid.play().catch(()=>{}));
+    }
+}
 
 function killPlayer(){if(hls){hls.destroy();hls=null}}
 
-function render(){renderGrid();renderAdmin()}
+// ===== Rendering =====
+function render(){renderGrid();renderAdmin();renderIptvPlaylists()}
 
 function renderGrid(){
     const grid=document.getElementById('grid'),empty=document.getElementById('empty');
+    const groupsBar=document.getElementById('iptv-groups-bar');
+    const searchBar=document.getElementById('iptv-search-bar');
+
+    // Show/hide IPTV filters
+    if(curCat==='iptv'){
+        groupsBar.style.display='flex';
+        searchBar.style.display='flex';
+        renderIptvGroups();
+    }else{
+        groupsBar.style.display='none';
+        searchBar.style.display='none';
+        iptvActiveGroup='all';
+    }
+
     let list=[...videos];
     if(curCat==='fav')list=list.filter(v=>favs.includes(v.id));
+    else if(curCat==='iptv')list=list.filter(v=>v.source==='iptv');
     else if(curCat!=='all')list=list.filter(v=>v.category===curCat);
-    if(!list.length){grid.innerHTML='';empty.style.display='';return}
+
+    // IPTV group filter
+    if(curCat==='iptv'&&iptvActiveGroup!=='all'){
+        list=list.filter(v=>v.iptvGroup===iptvActiveGroup);
+    }
+
+    // IPTV search
+    if(curCat==='iptv'&&iptvSearch){
+        list=list.filter(v=>(v.title||'').toLowerCase().includes(iptvSearch)||(v.iptvGroup||'').toLowerCase().includes(iptvSearch));
+    }
+
+    if(!list.length){grid.innerHTML='';empty.style.display='';
+        if(curCat==='iptv'){
+            empty.innerHTML='<i class="fas fa-satellite-dish"></i><h3>Nenhum canal IPTV</h3><p>Adicione uma lista M3U pelo painel Admin.</p>';
+        }
+        return;
+    }
     empty.style.display='none';
     grid.innerHTML=list.map(v=>{
-        const thumb=v.source==='youtube'&&v.embedId?`https://img.youtube.com/vi/${v.embedId}/hqdefault.jpg`:'';
-        const bc=v.source==='youtube'?'badge-yt':v.source==='drive'?'badge-drive':'badge-link';
-        const bl=v.source==='youtube'?'YouTube':v.source==='drive'?'Drive':'Link';
+        let thumbHtml='';
+        let badgeClass='badge-link',badgeLabel='Link';
+        if(v.source==='youtube'){
+            const t=`https://img.youtube.com/vi/${v.embedId}/hqdefault.jpg`;
+            thumbHtml=`<img src="${t}" loading="lazy" onerror="this.parentElement.style.background='var(--bg3)'">`;
+            badgeClass='badge-yt';badgeLabel='YouTube';
+        }else if(v.source==='drive'){
+            badgeClass='badge-drive';badgeLabel='Drive';
+        }else if(v.source==='iptv'){
+            if(v.iptvLogo){
+                thumbHtml=`<img class="channel-logo" src="${v.iptvLogo}" loading="lazy" onerror="this.style.display='none'">`;
+            }
+            badgeClass='badge-iptv';badgeLabel='IPTV';
+        }
         const isFav=favs.includes(v.id);
-        return`<div class="card" onclick="openPlayer('${v.id}')"><div class="thumb">${thumb?`<img src="${thumb}" loading="lazy" onerror="this.parentElement.style.background='var(--bg3)'">`:''}<div class="thumb-overlay"><i class="fas fa-play"></i></div><span class="badge ${bc}">${bl}</span><button class="del-btn" onclick="event.stopPropagation();delVideo('${v.id}')"><i class="fas fa-trash"></i></button></div><div class="card-info"><div class="card-title">${v.title||'Sem título'}</div><div class="card-cat">${v.category||'Geral'} ${isFav?'<i class="fas fa-heart" style="color:var(--red);margin-left:4px;font-size:10px"></i>':''}</div></div></div>`}).join('')}
+        const extraCat=v.iptvGroup?` • ${v.iptvGroup}`:'';
+        return`<div class="card" onclick="openPlayer('${v.id}')"><div class="thumb ${v.source==='iptv'?'iptv-channel-thumb':''}">${thumbHtml}<div class="thumb-overlay"><i class="fas fa-play"></i></div><span class="badge ${badgeClass}">${badgeLabel}</span>${v.source==='iptv'?'<div class="live-dot"></div>':''}<button class="del-btn" onclick="event.stopPropagation();delVideo('${v.id}')"><i class="fas fa-trash"></i></button></div><div class="card-info"><div class="card-title">${v.title||'Sem título'}</div><div class="card-cat">${v.category||'Geral'}${extraCat} ${isFav?'<i class="fas fa-heart" style="color:var(--red);margin-left:4px;font-size:10px"></i>':''}</div></div></div>`}).join('')}
 
-function filter(cat,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');curCat=cat;renderGrid()}
+function renderIptvGroups(){
+    const groupsBar=document.getElementById('iptv-groups-bar');
+    const iptvChannels=videos.filter(v=>v.source==='iptv');
+    const groups=[...new Set(iptvChannels.map(v=>v.iptvGroup).filter(Boolean))].sort();
+    if(!groups.length){groupsBar.innerHTML='<span style="font-size:11px;color:var(--text3)">Nenhum grupo disponível</span>';return}
+    groupsBar.innerHTML=`<button class="iptv-group ${iptvActiveGroup==='all'?'active':''}" onclick="filterIptvGroup('all')">Todos</button>`+
+        groups.map(g=>`<button class="iptv-group ${iptvActiveGroup===g?'active':''}" onclick="filterIptvGroup('${g.replace(/'/g,"\\'")}')">${g}</button>`).join('');
+}
 
+function filter(cat,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');curCat=cat;iptvActiveGroup='all';iptvSearch='';renderGrid()}
+
+// ===== Add Videos =====
 function addVideoUser(){
     const url=document.getElementById('uv-url').value.trim(),title=document.getElementById('uv-title').value.trim(),cat=document.getElementById('uv-cat').value;
     if(!url)return toast('Insira uma URL','err');
@@ -363,38 +741,49 @@ function addVideoAdmin(){
 
 function pickSrc(el){el.parentElement.querySelectorAll('.src-opt').forEach(x=>x.classList.remove('on'));el.classList.add('on');adminSrc=el.dataset.s;document.getElementById('av-hint').textContent={youtube:'Cole o link do YouTube',drive:'Cole o link do Google Drive',direct:'Cole um link direto (.mp4, .m3u8, .webm)'}[adminSrc]}
 
+// ===== Admin =====
 function renderAdmin(){
+    const totalChannels=videos.filter(v=>v.source==='iptv').length;
     document.getElementById('admin-stats').innerHTML=`
-        <div class="stat"><div class="val" style="color:var(--red)">${videos.length}</div><div class="lbl">Vídeos</div></div>
-        <div class="stat"><div class="val" style="color:var(--blue)">${videos.filter(v=>v.source==='youtube').length}</div><div class="lbl">YouTube</div></div>
-        <div class="stat"><div class="val" style="color:var(--green)">${videos.filter(v=>v.source==='direct').length}</div><div class="lbl">Links</div></div>
-        <div class="stat"><div class="val" style="color:var(--purple)">${favs.length}</div><div class="lbl">Favoritos</div></div>`;
+        <div class="stat"><div class="val" style="color:var(--red)">${videos.filter(v=>v.source!=='iptv').length}</div><div class="lbl">Vídeos</div></div>
+        <div class="stat"><div class="val" style="color:var(--cyan)">${totalChannels}</div><div class="lbl">Canais IPTV</div></div>
+        <div class="stat"><div class="val" style="color:var(--purple)">${iptvPlaylists.length}</div><div class="lbl">Listas IPTV</div></div>
+        <div class="stat"><div class="val" style="color:var(--orange)">${favs.length}</div><div class="lbl">Favoritos</div></div>`;
 
     let vList=[...videos];if(vSearch){const q=vSearch.toLowerCase();vList=vList.filter(v=>(v.title||'').toLowerCase().includes(q)||(v.source||'').includes(q))}
-    document.getElementById('tbody-v').innerHTML=vList.length?vList.map(v=>{const tag=v.source==='youtube'?'tag-yt':v.source==='drive'?'tag-drive':'tag-link';const sl=v.source==='youtube'?'YouTube':v.source==='drive'?'Drive':'Link';return`<tr><td><strong>${v.title||'?'}</strong></td><td><span class="tag ${tag}">${sl}</span></td><td>${v.category||'Geral'}</td><td><div style="display:flex;gap:4px"><button class="act-btn act-copy" onclick="copyVurl('${v.id}')"><i class="fas fa-copy"></i></button><button class="act-btn act-del" onclick="delVideo('${v.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`}).join(''):'<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text3)">Nenhum vídeo</td></tr>'}
+    document.getElementById('tbody-v').innerHTML=vList.length?vList.map(v=>{
+        let tagClass,srcLabel;
+        if(v.source==='iptv'){tagClass='tag-iptv';srcLabel='IPTV'}
+        else if(v.source==='youtube'){tagClass='tag-yt';srcLabel='YouTube'}
+        else if(v.source==='drive'){tagClass='tag-drive';srcLabel='Drive'}
+        else{tagClass='tag-link';srcLabel='Link'}
+        return`<tr><td><strong>${v.title||'?'}</strong>${v.iptvGroup?`<br><small style="color:var(--text3)">${v.iptvGroup}</small>`:''}</td><td><span class="tag ${tagClass}">${srcLabel}</span></td><td>${v.category||'Geral'}</td><td><div style="display:flex;gap:4px"><button class="act-btn act-copy" onclick="copyVurl('${v.id}')"><i class="fas fa-copy"></i></button><button class="act-btn act-del" onclick="delVideo('${v.id}')"><i class="fas fa-trash"></i></button></div></td></tr>`}).join(''):'<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text3)">Nenhum vídeo</td></tr>'}
 
-function aTab(tab,el){document.querySelectorAll('.a-tab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.a-section').forEach(s=>s.classList.remove('on'));el.classList.add('on');document.getElementById('sec-'+tab).classList.add('on')}
+function aTab(tab,el){document.querySelectorAll('.a-tab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.a-section').forEach(s=>s.classList.remove('on'));el.classList.add('on');
+    const sec=document.getElementById('sec-'+tab);if(sec)sec.classList.add('on');
+    if(tab==='iptv-admin')renderIptvPlaylists();}
 function aSearchV(q){vSearch=q;renderAdmin()}
 
 function openAdminLogin(){document.getElementById('admin-login').classList.add('show');document.getElementById('admin-pass').value='';document.getElementById('admin-pass').focus()}
 function closeAdminLogin(){document.getElementById('admin-login').classList.remove('show')}
 function checkAdmin(){const p=document.getElementById('admin-pass').value;if(p===ADMIN_PASS){closeAdminLogin();document.getElementById('home-view').style.display='none';document.getElementById('player-view').style.display='none';document.getElementById('admin-panel').classList.add('show');renderAdmin()}else{toast('Senha incorreta','err')}}
 
+// ===== Actions =====
 function delVideo(id){if(!confirm('Excluir?'))return;videos=videos.filter(v=>v.id!==id);favs=favs.filter(f=>f!==id);saveV();saveFav();render();toast('Excluído','inf');if(curPlay===id)goHome();syncToCloud()}
 function toggleFav(){if(!curPlay)return;const i=favs.indexOf(curPlay);if(i>-1){favs.splice(i,1);toast('Removido','inf')}else{favs.push(curPlay);toast('Favoritado!','ok')}saveFav();const isFav=favs.includes(curPlay);document.getElementById('fav-icon').className=isFav?'fas fa-heart':'far fa-heart';document.getElementById('fav-icon').style.color=isFav?'var(--red)':'';document.getElementById('fav-text').textContent=isFav?'Favoritado':'Favoritar'}
 function copyUrl(){const v=videos.find(x=>x.id===curPlay);if(v)navigator.clipboard.writeText(v.url).then(()=>toast('Copiado!','ok'))}
 function copyVurl(id){const v=videos.find(x=>x.id===id);if(v)navigator.clipboard.writeText(v.url).then(()=>toast('URL copiada!','ok'))}
 
-function exportData(){const d={videos,favs,date:new Date().toISOString()};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));a.download=`streamdark-${Date.now()}.json`;a.click();toast('Exportado!','ok')}
-function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.videos){videos=d.videos;saveV()}if(d.favs){favs=d.favs;saveFav()}render();toast('Importado!','ok');syncToCloud()}catch{toast('Arquivo inválido','err')}};r.readAsText(f);e.target.value=''}
+function exportData(){const d={videos,favs,iptvPlaylists,date:new Date().toISOString()};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));a.download=`streamdark-${Date.now()}.json`;a.click();toast('Exportado!','ok')}
 
 function closeModal(id){document.getElementById(id).classList.remove('show')}
 function saveV(){localStorage.setItem('sd_v',JSON.stringify(videos))}
 function saveFav(){localStorage.setItem('sd_fav',JSON.stringify(favs))}
+function saveIptv(){localStorage.setItem('sd_iptv',JSON.stringify(iptvPlaylists))}
 
 function toast(msg,type='inf'){const c=document.getElementById('toasts');const t=document.createElement('div');t.className=`toast ${type}`;const icons={ok:'fas fa-check-circle',err:'fas fa-exclamation-circle',inf:'fas fa-info-circle'};const colors={ok:'var(--green)',err:'var(--red)',inf:'var(--blue)'};t.innerHTML=`<i class="${icons[type]}" style="color:${colors[type]}"></i> ${msg}`;c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(30px)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300)},3500)}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('modal-add');closeAdminLogin()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('modal-add');closeModal('modal-iptv-add');closeAdminLogin()}});
 </script>
 </body>
 </html>
